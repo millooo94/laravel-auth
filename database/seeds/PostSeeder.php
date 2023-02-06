@@ -19,7 +19,7 @@ class PostSeeder extends Seeder
             $title = $faker->words(rand(3, 7), true);
 
             Post::create([
-                'slug'      => Post::getSlug($title), // TODO: fare funzione slugger
+                'slug'      => Post::getSlug($title),
                 'title'     => $title,
                 'image'     => 'https://picsum.photos/id/'. rand(0, 1000) .'/500/400',
                 'content'   => $faker->paragraphs(rand(1, 10), true),

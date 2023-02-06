@@ -6,35 +6,39 @@
         ID post {{ session('success_delete')->id }} correctly deleted
     </div>
     @endif
-    <div class="row">
-        @foreach ($posts as $post)
-        <div class="col-12">
-            <div class="card index mb-3 m-auto" style="width: 60%;">
-                <div class="row g-0">
-                  <div class="col-md-4 d-flex">
-                    <img src="{{$post->image}}" class="img-fluid rounded-start" alt="...">
-                  </div>
-                  <div class="col-md-8 d-flex align-items-center">
-                    <div class="card-body">
-                      <h5 class="card-title">{{$post->title}}</h5>
-                      <p class="series fw-bold"> {{$post->content}}</p>
-                      <p class="type text-uppercase">{{$post->excerpt}}</p>
-                      <div class="btn-container d-flex justify-content-center align-items-center">
-                        <a class="btn btn-info" href="{{route('admin.posts.show', ['post' => $post])}}">INFO</a>
-                        <a class="btn btn-warning m-2" href="{{route('admin.posts.edit', ['post' => $post])}}">EDIT</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Slug</th>
+                <th scope="col">Titolo</th>
+                <th scope="col">Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($posts as $post)
+                <tr>
+                    <th scope="row">{{ $post->id }}</th>
+                    <td>{{ $post->slug }}</td>
+                    <td>{{ $post->title }}</td>
+
+                    <td>
+                        <a href="{{ route('admin.posts.show', ['post' => $post]) }}" class="btn btn-primary">SHOW</a>
+                    </td>
+                    <td>
+                        <a href="{{ route('admin.posts.edit', ['post' => $post]) }}" class="btn btn-warning">EDIT</a>
+                    </td>
+                    <td>
                         <form action="{{ route('admin.posts.destroy', ['post' => $post]) }}" method="post">
                             @method('DELETE')
                             @csrf
-                            <button class="btn btn-danger">DELETE</button>
+                            <button class="btn btn-danger btn-delete-me">DELETE</button>
                         </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-        </div>
-        @endforeach
-    </div>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
     {{ $posts->links() }}
 </div>
 @endsection
